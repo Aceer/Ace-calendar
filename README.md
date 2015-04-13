@@ -1,2 +1,2 @@
 # Ace-calendar
-Javascript kalendar v.1
+Javascript calendar v.1
