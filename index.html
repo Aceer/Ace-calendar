@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Calendar plugin</title>
+  <link rel="stylesheet" href="base-style.css"/>
+  <link rel="stylesheet" href="plugin-calendar.css"/>
+</head>
+<body>
+<div id="head-wrapper">Calender plugin v.1.0</div>
+<div id="head-under-wrapper">Skaffa en snygg och smidig kalender till ditt idrottslag med hjälp utav detta jQuery plugin.<span id="btn-learnMore" class="btn-green">Lär dig hur det fungerar</span><br>
+	<div id="box-learnMore">
+		<p><span class="bold-white">1.</span> Ladda ner filerna från github .... länk. Nedanför i listan beskrivs vad alla filerna gör.<br></p>
+		<ul>
+			<li><span class="bold-white">pluginCalendar.js</span> - kalender koden för en vanlig användare.</li>
+			<li><span class="bold-white">adminpluginCalendar.js</span> - kalender koden för en admin som gör att han/hon kan ändra i kalendern.</li>
+			<li><span class="bold-white">plugin-calendar.css</span> - css fil för kalendern.</li>
+			<li><span class="bold-white">calUpdateDB.php</span> - i adminpluginCalendar.js(rad 403) skickas datan för att uppdatera kalendern till calUpdateDB.php som sparar den i en databas. calUpdateDB.php är bara ett enkelt exempel på hur man kan göra så det kan vara bra om du gör en egen kopplad till din databas.</li>
+			<li><span class="bold-white">calGetDataDB.php</span> - i pluginCalendar.js(rad 93) hämtas datan från calGetDataDB.php som i sin tur hämtar datan från en databas. Du får gära skapa din egna calGetDataDB.php och koppla den till din databas.</li>
+		</ul>
+		<p><span class="bold-white">2.</span> Ändra filerna calUpdateDB.php, calGetDataDB.php så att de kollar upp sig till din databas eller skapa ett eget sätt att komma åt din databas.</p>
+		<p><span class="bold-white">3.</span> Skapa en databas tabell med columnerna: year INT, month INT, day INT, type INT, head VARCHAR(50), start VARCHAR(5), end VARCHAR(5), place VARCHAR(60), vs VARCHAR(60), text VARCHAR(255). Kolumn type är för att visa rätt bakgrundsbild i kalendern och head är om admin lägger till ett info event med en egen rubrik.</p>
+		<p><span class="bold-white">4.</span> Koppla kalendern till ett html element med $('#html-element').pluginCalendar().setup();. Kalendern är responsive så den kan ha flera olika storlekar.</p>
+		<p><span class="bold-white">5.</span> För tillfället finns det ingen kontroll av texten som en admin lägger till men detta kommer att komma i en senare version. Så vill du ha det går det enkelt att lägga till valfritt formulärhanterings script.</span></p>
+	</div>
+</div>
+<div id="head-under-wrapper2"><span id="btn-admin" class="btn-green">Testa som Admin</span><br><div class="small-text">(Testa att vara admin och ändra i kalendern)</div></div>
+<div id="wrapper">
+	<section id="add-calendar">
+	</section>
+</div>
+</body>
+<script src="../javascript/jquery.js" id="jQuery"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	var urlP = 'pluginCalendar.js',
+		btnAdmin = document.getElementById('btn-admin'),
+		btnLearn = document.getElementById('btn-learnMore'),
+		boxLearn = document.getElementById('box-learnMore'),
+		headWrap = document.getElementById('head-under-wrapper'),
+		state = 1;
+	
+	console.log('MAIN');
+	changeScript(urlP,setUpCal);
+	
+	btnAdmin.onclick = function(){
+		if (btnAdmin.className == 'btn-green'){
+			console.log(btnAdmin.className );
+			btnAdmin.className = 'btn-red';
+			btnAdmin.innerHTML = 'Admin log out!';
+			urlP = 'adminPluginCalendar.js';
+		}else{
+			console.log(btnAdmin.className );
+			btnAdmin.className = 'btn-green';
+			btnAdmin.innerHTML = 'Testa som Admin';
+			urlP = 'pluginCalendar.js';
+		}
+		changeScript(urlP,setUpCal);
+	};
+	
+	btnLearn.onclick = function(){
+		if(state == 1){
+			//headWrap.style.height = '300px';
+			boxLearn.style.display = 'block';
+			btnLearn.className = 'btn-red';
+			btnLearn.innerHTML = 'Dölj info';
+			state = 0;
+			console.log('300 staet = '+state);
+		}else{
+			//headWrap.style.height = '50px';
+			boxLearn.style.display = 'none';
+			btnLearn.className = 'btn-green';
+			btnLearn.innerHTML = 'Visa info';
+			state = 1;
+			console.log('10 staet = '+state);
+		}
+	};
+	
+	function changeScript(url,callback){
+		console.log('changeScript()');
+		var script = document.createElement('script');
+		var idJquery = document.getElementById('jQuery');
+		script.type = 'text/javascript';
+		script.src = url;
+		
+		idJquery.appendChild(script);
+		
+		script.onload = callback;
+		script.onreadystatechange = callback;
+	}
+	
+	function setUpCal(){
+		console.log('setUpCal()');
+		$('#add-calendar').pluginCalendar().setup();
+	}
+	
+});
+</script>
+</html>
