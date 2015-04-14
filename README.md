@@ -11,4 +11,7 @@ Main files:
 - img Dir - All the calendars images.
 
 Database files:
-- calDB.php - Configurations to connect to the DB and
+(This is just an axampel on how you can get data from the a server, you can create you're own database getter script)
+- calGetDataDB.php - Gets the data from the server.
+- calUpdateDB.php - Updates the data in the calendar but only if you are admin.
+- 
