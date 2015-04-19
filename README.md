@@ -6,7 +6,7 @@ http://www.student.bth.se/~alsv13/javascriptKurs/projekt/
 
 (You have to set up a way to connect as a admin your self but in the link above I have made a way to swith between admin and a   normal user)
 
-Main files:
+<b>Main files:</b>
 - pluginCalendar.js - This is the main pluginFile.
 - adminPluginCalendar.js - This is for the adims panel so thay can change in the calendar.
 - plufin-calendar.css - The css file for the calendar (not minified yet).
