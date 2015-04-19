@@ -20,15 +20,9 @@ if($_GET['type'] === 'getData'){
 		$stmt = $pdo->prepare($sql);
 		$stmt->execute();
 		$res = $stmt->fetchAll();
-		
-		//echo var_dump(json_encode($res));
-		
+
 		header('content-type: application/json');
 		echo json_encode($res);
-		
-		//header('content-type: application/json');
-		//echo jason_encode(array("message" => $messages[rand(0, count($messages)-1)]));
-
 
 	}catch(Exception $e){
 		// throw 'Error msg: '.$e->getMessage(); // For degug
